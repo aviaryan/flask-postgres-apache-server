@@ -26,7 +26,7 @@ We will setup an internal postgres server as the database and demonstrate some a
 14. Set it up in your server so that it functions correctly when visiting your server’s IP address in a browser. Make sure that your .git directory is not publicly accessible via a browser.
 
 
-### Step 1:
+## Step 1:
 
 To start a new server on Digital Ocean, create a new droplet. Use the following specifications -
 
@@ -43,7 +43,7 @@ To start a new server on Digital Ocean, create a new droplet. Use the following 
 - Finish. Click on Create button.
 
 
-### Step 2:
+## Step 2:
 
 - To ssh into the server, copy the IP address from Digital Ocean interface. Here it is `165.227.16.72`.
 
@@ -57,9 +57,17 @@ ssh -i ~/.ssh/catalog_root root@165.227.16.72
 ```
 
 - You will have to enter the passphrase for the ssh key that you created. Enter it and you should be connected.
-
-![Passphrase enter box](https://i.imgur.com/dvnoYl4.png)
-
 - Try running `pwd` to check if things are working. Congrats, you officially now have access to your server.
 
 ![ssh into server view](https://i.imgur.com/w2fRR9e.png)
+
+
+## Step 3:
+
+To update currently installed packages, run the following command-
+
+```sh
+sudo apt-get update
+sudo apt-get upgrade
+# sudo is actually not required in case of DO but never mind :)
+```
