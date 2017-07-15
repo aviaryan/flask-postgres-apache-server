@@ -25,6 +25,8 @@ You should replace "catalog" with *your project name* everywhere in this article
 12. Install git.
 13. Clone and setup your git project (here Catalog).
 14. Set it up in your server so that it functions correctly when visiting your server’s IP address in a browser. Make sure that your .git directory is not publicly accessible via a browser.
+15. Use a custom domain with Digital Ocean.
+16. Disable root remote login and enforce key-based authentication.
 
 
 <a name="step1"></a>
@@ -350,11 +352,36 @@ Now we need to make changes in the domain registrar's side as well. Add digital 
 
 Now go visit your sub-domain. It should work. (Here: http://catalog.aavi.me)
 
+PS - You may need to disable the default nginx site here. `sudo a2dissite 000-default`
 
------
+
+### Step 16:
+
+To disable root login & password-based login through ssh, open the ssh config file.
+
+```sh
+sudo nano /etc/ssh/sshd_config
+```
+
+Make changes as shown below.
+
+```sh
+PermitRootLogin no
+PasswordAuthentication yes
+```
+
+Save the file and restart ssh server.
+
+```sh
+sudo service ssh restart
+```
+
+
+------
 
 ### References
 
-* http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/
-* https://mediatemple.net/community/products/dv/204643810/how-do-i-disable-ssh-login-for-the-root-user
+* [Flask mod wsgi](http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/)
+* [Disable root login](https://mediatemple.net/community/products/dv/204643810/how-do-i-disable-ssh-login-for-the-root-user)
+* [Enabling and disabling sites](http://snipplr.com/view/15626/apache2--enabling-and-disabling-sites/)
 
