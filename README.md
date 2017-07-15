@@ -46,19 +46,20 @@ To start a new server on Digital Ocean, create a new droplet. Use the following 
 
 ## Step 2:
 
-- To ssh into the server, copy the IP address from Digital Ocean interface. Here it is `165.227.16.72`.
+To ssh into the server, copy the IP address from Digital Ocean interface. Here it is `165.227.16.72`.
 
 ![DO dashboard screenshot](https://i.imgur.com/QyzJMIC.png)
 
-- ssh into the server with the following command.
+ssh into the server with the following command.
 
 ```sh
 ssh -i ~/.ssh/catalog_root root@165.227.16.72
 # ssh -i /full/path/to/key root@IP
 ```
 
-- You will have to enter the passphrase for the ssh key that you created. Enter it and you should be connected.
-- Try running `pwd` to check if things are working. Congrats, you officially now have access to your server.
+You will have to enter the passphrase for the ssh key that you created. Enter it and you should be connected.
+
+Try running `pwd` to check if things are working. Congrats, you officially now have access to your server.
 
 ![ssh into server view](https://i.imgur.com/w2fRR9e.png)
 
@@ -78,15 +79,15 @@ sudo apt-get upgrade
 
 To change ssh port to 2200, follow the given steps-
 
-- Open ssh config in `nano`.
+Open ssh config in `nano`.
 
 ```sh
 sudo nano /etc/ssh/sshd_config
 ```
 
-- Locate "Port 22" in that file. Change it to "Port 2200".
+Locate "Port 22" in that file. Change it to "Port 2200".
 
-- Restart sshd service.
+Restart ssh service.
 
 ```sh
 sudo service ssh restart
