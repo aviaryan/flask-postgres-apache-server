@@ -71,3 +71,47 @@ sudo apt-get update
 sudo apt-get upgrade
 # sudo is actually not required in case of DO but never mind :)
 ```
+
+
+## Step 4:
+
+To change ssh port to 2200, follow the given steps-
+
+- Open ssh config in `nano`.
+
+```sh
+sudo nano /etc/ssh/sshd_config
+```
+
+- Locate "Port 22" in that file. Change it to "Port 2200".
+
+- Restart sshd service.
+
+```sh
+sudo service ssh restart
+```
+
+
+## Step 5:
+
+To configure UFW to allow given connections, follow the steps:
+
+```sh
+sudo ufw allow 2200
+sudo ufw allow 80
+sudo ufw allow 123
+```
+
+Then enable ufw.
+
+```sh
+sudo ufw enable
+```
+
+Now ssh port has been changed to 2200. Try exiting the ssh connection and re-connecting with the following command.
+
+```sh
+ssh -p 2200 -i ~/.ssh/catalog_root root@165.227.16.72
+```
+
+Notice the `-p 2200` there. Clean, isn't it.
