@@ -78,7 +78,12 @@ To update currently installed packages, run the following command-
 ```sh
 sudo apt-get update
 sudo apt-get upgrade
+# security updates
+sudo apt-get install unattended-upgrades
+# install them manually
+sudo unattended-upgrades
 # sudo is actually not required in case of DO but never mind :)
+# sudo apt-get -u upgrade # checks list of updates
 ```
 
 
