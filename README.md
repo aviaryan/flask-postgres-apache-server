@@ -200,3 +200,70 @@ Current default time zone: 'Etc/UTC'
 Local time is now:      Sat Jul 15 04:50:15 UTC 2017.
 Universal Time is now:  Sat Jul 15 04:50:15 UTC 2017.
 ```
+
+
+## Step 10:
+
+To serve Python using Apache and mod_wsgi, install the following components.
+
+```sh
+sudo apt-get install python3
+sudo apt-get install python3-setuptools
+sudo apt-get install apache2 libapache2-mod-wsgi
+```
+
+Then start apache service.
+
+```sh
+sudo service apache2 restart
+```
+
+
+## Step 11:
+
+Install postgresql as follows
+
+```sh
+sudo apt-get install postgresql
+```
+
+To disable remote connections, make sure you don't have any other IPs besides `127.0.0.1` in the following file.
+
+```sh
+sudo nano /etc/postgresql/VERSION/main/pg_hba.conf
+# VERSION = your postgres version
+# here we have
+# sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+```
+
+Now to create `catalog` database, run the following to get into psql shell.
+
+```sh
+sudo -u postgres psql
+```
+
+Then when inside psql shell, run the following.
+
+```sql
+create user catalog with password 'password';
+create database catalog with owner catalog;
+```
+
+Then exit psql shell with the following command.
+
+```sql
+\q
+```
+
+
+## Step 12:
+
+To install git, run-
+
+```sh
+sudo apt-get install git
+```
+
+
+## Step 13:
+
