@@ -26,6 +26,7 @@ We will setup an internal postgres server as the database and demonstrate some a
 14. Set it up in your server so that it functions correctly when visiting your server’s IP address in a browser. Make sure that your .git directory is not publicly accessible via a browser.
 
 
+<a name="step1"></a>
 ## Step 1:
 
 To start a new server on Digital Ocean, create a new droplet. Use the following specifications -
@@ -115,3 +116,66 @@ ssh -p 2200 -i ~/.ssh/catalog_root root@165.227.16.72
 ```
 
 Notice the `-p 2200` there. Clean, isn't it.
+
+
+## Step 6:
+
+To create a user called `grader`, run the following command.
+
+```sh
+sudo adduser grader
+```
+
+Fill in the details, use `password` as the password for this user.
+
+To check if the new user has been created successfully or not, run `ls /home/grader`. If the command exits without any problems, then that means
+the path is valid.
+
+
+## Step 7:
+
+To give `grader` sudo permission, we first create `grader` file inside `sudoers.d`.
+
+```sh
+touch /etc/sudoers.d/grader
+```
+
+Then we open the file in `nano` (`sudo nano /etc/sudoers.d/grader`) and add the following-
+
+```sh
+grader ALL=(ALL) NOPASSWD:ALL
+```
+
+
+## Step 8:
+
+We will now have to setup a ssh key-pair for grader.
+
+Follow the steps in [Step 1](#step1) to create a new ssh key at `~/.ssh/catalog_grader`.
+Don't give a password this time as ssh keys are themselves meant to be credentials so you can say that they are themselves passwords.
+
+Copy the contents of `catalog_grader.pub` file.
+
+On the server terminal, run -
+
+```sh
+su - grader
+mkdir .ssh
+chmod 700 .ssh
+nano .ssh/authorized_keys
+# paste the contents and save the file
+chmod 644 .ssh/authorized_keys
+```
+
+Restart the ssh service.
+
+```sh
+sudo service ssh restart
+```
+
+Now you should be able to login as `grader`. Exit current connection and do the following.
+
+```sh
+ssh -p 2200 -i ~/.ssh/catalog_grader grader@165.227.16.72
+```
+
