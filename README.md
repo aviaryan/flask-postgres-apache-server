@@ -3,7 +3,8 @@
 In this tutorial, we will deploy a flask server project to Digital Ocean.
 We will setup an internal postgres server as the database and demonstrate some advanced server management magic.
 
-**Note** - Here we are taking a project named "catalog". You should replace "catalog" with *your project name* everywhere in this article.
+**Note** - Here we are taking a project named "[catalog](https://github.com/aviaryan/ud-catalog)".
+You should replace "catalog" with *your project name* everywhere in this article.
 
 
 ## Table of Contents
@@ -209,7 +210,9 @@ To serve Python using Apache and mod_wsgi, install the following components.
 ```sh
 sudo apt-get install python3
 sudo apt-get install python3-setuptools
-sudo apt-get install apache2 libapache2-mod-wsgi
+sudo apt-get install apache2 libapache2-mod-wsgi-py3
+# this is for Python 3
+# for python2 it is python, python-setuptools and libapache2-mod-wsgi
 ```
 
 Then start apache service.
@@ -266,4 +269,72 @@ sudo apt-get install git
 
 
 ## Step 13:
+
+Our project is at https://github.com/aviaryan/ud-catalog
+
+First we need to clone it on server.
+
+```sh
+cd /var/www
+sudo git clone https://github.com/aviaryan/ud-catalog.git catalog
+```
+
+Then we need to setup the project. See the [project README](https://github.com/aviaryan/ud-catalog) for instructions.
+
+```sh
+# install pip3
+sudo easy_install3 pip
+# install requirements
+cd catalog
+sudo pip3 install -r requirements.txt
+# setup database
+export DB_URI=postgresql://catalog:password@localhost/catalog
+python3 manage.py db upgrade
+# create initial categories
+python3 create_category.py
+# setup auth config
+sudo nano config.py
+# ^^ and add credentials there
+```
+
+
+## Step 14:
+
+To make sure that project runs,
+
+```sh
+sudo nano /etc/apache2/sites-available/catalog.conf
+```
+
+```xml
+<VirtualHost *:80>
+    ServerName 165.227.16.72
+
+    WSGIScriptAlias / /var/www/catalog/wsgi.py
+
+    <Directory /var/www/catalog>
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
+```
+
+```sh
+sudo a2ensite catalog  # enable site
+sudo service apache2 reload
+```
+
+The server should be live now. If error occurs, check the log.
+
+```sh
+sudo cat /var/log/apache2/error.log
+```
+
+
+-----
+
+### References
+
+* http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/
+* https://mediatemple.net/community/products/dv/204643810/how-do-i-disable-ssh-login-for-the-root-user
 
