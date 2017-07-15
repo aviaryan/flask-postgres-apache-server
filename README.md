@@ -1,10 +1,10 @@
-# DO flask postgres server
+# Flask Postgres Apache server
 
 > Project url: http://catalog.aavi.me/
 Project IP: http://165.227.16.72/
 
 
-In this tutorial, we will deploy a flask server project to Digital Ocean.
+In this tutorial, we will deploy a flask server project to a linux server (here Digital Ocean).
 We will setup an internal postgres server as the database and demonstrate some advanced server management magic.
 
 **Note** - Here we are taking a project named "[catalog](https://github.com/aviaryan/ud-catalog)".
