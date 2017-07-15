@@ -179,3 +179,23 @@ Now you should be able to login as `grader`. Exit current connection and do the 
 ssh -p 2200 -i ~/.ssh/catalog_grader grader@165.227.16.72
 ```
 
+
+## Step 9:
+
+To configure timezone, run the following command.
+
+```sh
+sudo dpkg-reconfigure tzdata
+```
+
+Select "None of the following" and then select UTC.
+
+![timezone configure UI](https://i.imgur.com/jMF688M.png)
+
+When done, you should see something like this in the terminal.
+
+```sh
+Current default time zone: 'Etc/UTC'
+Local time is now:      Sat Jul 15 04:50:15 UTC 2017.
+Universal Time is now:  Sat Jul 15 04:50:15 UTC 2017.
+```
