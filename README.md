@@ -188,7 +188,7 @@ To configure timezone, run the following command.
 sudo dpkg-reconfigure tzdata
 ```
 
-Select "None of the following" and then select UTC.
+Select "None of the above" and then select UTC.
 
 ![timezone configure UI](https://i.imgur.com/jMF688M.png)
 
