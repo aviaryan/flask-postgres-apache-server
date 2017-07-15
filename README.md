@@ -295,6 +295,8 @@ python3 create_category.py
 # setup auth config
 sudo nano config.py
 # ^^ and add credentials there
+# also change redirect_uri to http://catalog.aavi.me/gCallback
+# see step 15 for why we are doing so
 ```
 
 
@@ -324,11 +326,29 @@ sudo a2ensite catalog  # enable site
 sudo service apache2 reload
 ```
 
-The server should be live now. If error occurs, check the log.
+The server should be live now. Visit the IP to check (http://165.227.16.72). If an error occurs, check the logs.
 
 ```sh
 sudo cat /var/log/apache2/error.log
 ```
+
+
+## Step 15:
+
+Now we would like to use a domain name for the server. I am using Namecheap as the domain registar but the steps should be same everywhere.
+
+But why are we doing so? Because [Google OAuth doesn't work for bare IPs](https://stackoverflow.com/questions/14238665/).
+
+So, go to Networking tab in Digital Ocean and create new domain. I want to use a sub-domain for this application `catalog.aavi.me`.
+Add an `@` record with the target as your created server. After this the dashboard should look like the following.
+
+![Digital Ocean Domain](https://i.imgur.com/upBFkvG.png)
+
+Now we need to make changes in the domain registrar's side as well. Add digital ocean's nameserver records there.
+
+![Namecheap NS](https://i.imgur.com/fQZzM9o.png)
+
+Now go visit your sub-domain. It should work. (Here: http://catalog.aavi.me)
 
 
 -----
