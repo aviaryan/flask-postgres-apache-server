@@ -1,5 +1,9 @@
 # DO flask postgres server
 
+> Project url: http://catalog.aavi.me/
+Project IP: http://165.227.16.72/
+
+
 In this tutorial, we will deploy a flask server project to Digital Ocean.
 We will setup an internal postgres server as the database and demonstrate some advanced server management magic.
 
@@ -304,11 +308,13 @@ sudo nano config.py
 
 ## Step 14:
 
-To make sure that project runs,
+Now we need to run the project using Apache and mod-wsgi. So we will first create a configuration file for your project.
 
 ```sh
 sudo nano /etc/apache2/sites-available/catalog.conf
 ```
+
+It should have the following components.
 
 ```xml
 <VirtualHost *:80>
@@ -322,6 +328,24 @@ sudo nano /etc/apache2/sites-available/catalog.conf
     </Directory>
 </VirtualHost>
 ```
+
+The [wsgi file](https://github.com/aviaryan/ud-catalog/blob/master/wsgi.py) has been already added to the project. It should look like this.
+
+```python
+import sys
+
+sys.path.insert(0, '/var/www/catalog')
+
+from catalog import app as application
+
+application.secret_key = 'New secret key. Change it on server'
+
+application.config['SQLALCHEMY_DATABASE_URI'] = (
+    'postgresql://'
+    'catalog:password@localhost/catalog')
+```
+
+Once this is done, enable the site and restart Apache.
 
 ```sh
 sudo a2ensite catalog  # enable site
@@ -355,7 +379,7 @@ Now go visit your sub-domain. It should work. (Here: http://catalog.aavi.me)
 PS - You may need to disable the default nginx site here. `sudo a2dissite 000-default`
 
 
-### Step 16:
+## Step 16:
 
 To disable root login & password-based login through ssh, open the ssh config file.
 
@@ -367,7 +391,7 @@ Make changes as shown below.
 
 ```sh
 PermitRootLogin no
-PasswordAuthentication yes
+PasswordAuthentication no
 ```
 
 Save the file and restart ssh server.
