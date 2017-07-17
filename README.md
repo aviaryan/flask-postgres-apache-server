@@ -1,5 +1,7 @@
 # Flask Postgres Apache server
 
+**IMPORTANT: The deployment server has now been deleted so some links here might not work.**
+
 > Project url: http://catalog.aavi.me/
 Project IP: http://165.227.16.72/
 
